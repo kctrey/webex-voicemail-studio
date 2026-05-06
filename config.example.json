@@ -1,0 +1,12 @@
+{
+    "webex": {
+        "client_id": "YOUR_CLIENT_ID_HERE",
+        "client_secret": "YOUR_CLIENT_SECRET_HERE",
+        "redirect_uri": "http://YOUR_PRODUCTION_DOMAIN/oauth/callback",
+        "static_token": "YOUR_STATIC_TEST_TOKEN"
+    },
+    "app": {
+        "retain_wav_files": false,
+        "enable_file_logging": false
+    }
+}
