@@ -51,8 +51,6 @@ Before running this application, you must install the following system dependenc
    - Go to [developer.webex.com](https://developer.webex.com) and create a new **Integration**.
    - Add the following scopes:
      - `spark:kms`
-     - `spark:people_read`
-     - `spark:people_write`
      - `spark:telephony_config_read`
      - `spark:telephony_config_write`
    - Set the Redirect URI to match where you will host the app (e.g., `https://alerts.kctrey.net/vm-studio/oauth/callback`).
