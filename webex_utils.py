@@ -44,17 +44,13 @@ def upload_voicemail_greetings(api: WebexSimpleApi, wav_file_path: str):
     """
     Uploads the given wav file as the busy and no answer greeting for the authenticated user.
     """
-    # Get the authenticated user's ID
-    me = api.people.me()
-    person_id = me.person_id
-    
-    # 1. Upload the greetings
-    api.person_settings.voicemail.configure_busy_greeting(person_id, content=wav_file_path)
-    api.person_settings.voicemail.configure_no_answer_greeting(person_id, content=wav_file_path)
+    # 1. Upload the greetings using the me settings API
+    api.me.voicemail.upload_busy_greeting(content=wav_file_path)
+    api.me.voicemail.upload_no_answer_greeting(content=wav_file_path)
     
     # 2. Update settings to use the custom greetings
     # Read current settings to modify them
-    settings = api.person_settings.voicemail.read(person_id)
+    settings = api.me.voicemail.settings()
     
     # Ensure voicemail is enabled
     if settings.enabled is False:
@@ -70,6 +66,6 @@ def upload_voicemail_greetings(api: WebexSimpleApi, wav_file_path: str):
         settings.send_unanswered_calls.greeting = Greeting.custom
         settings.send_unanswered_calls.enabled = True
 
-    api.person_settings.voicemail.configure(person_id, settings)
+    api.me.voicemail.configure(settings)
     
     return True

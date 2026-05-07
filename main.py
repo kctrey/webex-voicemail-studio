@@ -36,8 +36,12 @@ async def oauth_callback(code: str, state: str = None):
     tokens = integration.tokens_from_code(code)
     access_token = tokens.access_token
     
-    # Redirect to home and set cookie
-    response = RedirectResponse(url="/")
+    # Redirect to home dynamically based on the configured redirect_uri
+    config = webex_utils.load_config().get("webex", {})
+    redirect_uri = config.get("redirect_uri", "http://localhost:8000/oauth/callback")
+    base_url = redirect_uri.replace("oauth/callback", "")
+    
+    response = RedirectResponse(url=base_url)
     response.set_cookie(key="webex_token", value=access_token, httponly=True, max_age=3600)
     return response
 
@@ -94,6 +98,16 @@ async def upload_audio(request: Request, audio_file: UploadFile = File(...)):
         
         # 5. Upload to Webex
         webex_utils.upload_voicemail_greetings(api, tmp_out_path)
+        
+        # 6. Audit Logging
+        app_config = webex_utils.load_config().get("app", {})
+        if app_config.get("enable_audit_logging", True):
+            import datetime
+            me = api.people.me()
+            email = me.emails[0] if me.emails else "Unknown"
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            with open("audit.log", "a") as f:
+                f.write(f"[{timestamp}] {me.display_name} ({email}) uploaded a new voicemail greeting.\n")
         
         return JSONResponse(content={"status": "success", "message": "Voicemail greeting updated successfully!"})
     except Exception as e:

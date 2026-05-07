@@ -7,6 +7,7 @@
     },
     "app": {
         "retain_wav_files": false,
-        "enable_file_logging": false
+        "enable_file_logging": false,
+        "enable_audit_logging": true
     }
 }

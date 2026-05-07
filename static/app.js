@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check login status
     async function checkLogin() {
         try {
-            const response = await fetch('/me');
+            const response = await fetch('me');
             if (response.ok) {
                 const data = await response.json();
                 authSection.innerHTML = `
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('audio_file', audioBlob, 'greeting.webm');
 
         try {
-            const response = await fetch('/upload', {
+            const response = await fetch('upload', {
                 method: 'POST',
                 body: formData
             });
