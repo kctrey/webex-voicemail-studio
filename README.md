@@ -26,7 +26,7 @@ Before running this application, you must install the following system dependenc
 
 1. Clone the repository to your server:
    ```bash
-   git clone <your-repository-url>
+   git clone https://github.com/kctrey/webex-voicemail-studio.git
    cd webex-voicemail-studio
    ```
 
