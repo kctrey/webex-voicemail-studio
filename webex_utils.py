@@ -25,7 +25,7 @@ def get_integration():
     return Integration(
         client_id=client_id,
         client_secret=client_secret,
-        scopes=["spark:kms", "spark:telephony_config_read", "spark:telephony_config_write"],
+        scopes=["spark:kms", "spark:telephony_config_read", "spark:telephony_config_write", "spark:people_read"],
         redirect_url=redirect_uri
     )
 

@@ -53,6 +53,7 @@ Before running this application, you must install the following system dependenc
      - `spark:kms`
      - `spark:telephony_config_read`
      - `spark:telephony_config_write`
+     - `spark:people_read` (required to get the email address and name of the authenticated user)
    - Set the Redirect URI to match where you will host the app (e.g., `https://alerts.kctrey.net/vm-studio/oauth/callback`).
 
 3. Edit `config.json` with your credentials:
